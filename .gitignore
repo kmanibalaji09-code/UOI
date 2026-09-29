@@ -1,0 +1,19 @@
+# Environments & Secrets
+.env
+.venv
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Local UOI Crops & Weights
+backend/crops/*.jpg
+!backend/crops/.gitkeep
+yolov8n.pt
+*.pt
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <title>UOI — Universal Object Identifier (Google AI Studio Edition)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav id="nav">
+    <div class="logo"><i></i>UOI</div>
+    <button data-v="camera" class="on">Camera</button>
+    <button data-v="discover">Discover</button>
+    <button data-v="history">History</button>
+  </nav>
+
+  <main>
+    <!-- 1. Start Screen -->
+    <section id="start" class="view on">
+      <div class="hero">
+        <div class="mark"><i></i></div>
+        <h1>UOI</h1>
+        <p class="sub">Universal Object Identifier</p>
+        <h2>See the world.<br><b>Understand it.</b></h2>
+        <p>Point your camera at anything and get instant AI-powered identification with real-world information.</p>
+        
+        <div class="cta-group">
+          <button class="cta" id="go">📷 Start Camera →</button>
+          <label class="cta-alt" for="file-upload">
+            📁 Upload Image / Photo
+            <input type="file" id="file-upload" accept="image/*" style="display:none">
+          </label>
+        </div>
+
+        <div class="features-badge">
+          <span>⚡ Google AI Studio Ready</span>
+          <span>🌐 Real-time Search Grounding</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Camera Access Denied -->
+    <section id="denied" class="view">
+      <div class="hero">
+        <h2>Camera access is required</h2>
+        <p>Allow camera permission in your browser or upload an image file to explore objects.</p>
+        <div class="cta-group">
+          <button class="cta" id="retry">Try Again</button>
+          <label class="cta-alt" for="file-upload-denied">
+            Upload Image File
+            <input type="file" id="file-upload-denied" accept="image/*" style="display:none">
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 & 3. Live Detection & Object View -->
+    <section id="camera" class="view">
+      <video id="vid" playsinline muted autoplay></video>
+      <img id="static-img" style="display:none; width:100%; height:100%; object-fit:contain;" alt="Uploaded Frame">
+      <div id="nodes"></div>
+
+      <div class="top">
+        <span class="logo sm"><i></i>UOI</span>
+        <span class="live" id="live-badge">● LIVE</span>
+        <div class="seg" id="mode">
+          <button class="on" data-m="manual">Manual</button>
+          <button data-m="scan">Scan</button>
+        </div>
+        <div class="top-actions">
+          <button class="ic" id="ai-settings" title="Google AI Studio Key Settings">⚙️</button>
+          <button class="ic" id="torch" title="Flashlight / Torch">⚡</button>
+          <label class="ic" title="Upload Image" for="file-upload-top">
+            🖼️
+            <input type="file" id="file-upload-top" accept="image/*" style="display:none">
+          </label>
+          <button class="ic" id="flip" title="Flip Camera">⟲</button>
+        </div>
+      </div>
+
+      <!-- Shutter & Controls -->
+      <div class="camera-controls">
+        <button id="shutter" class="shutter-btn" title="Capture Snapshot"></button>
+      </div>
+
+      <div class="hint" id="hint">Tap on any object to see details (>60% auto-scans)</div>
+    </section>
+
+    <!-- 4. Discover Feed -->
+    <section id="discover" class="view scroll">
+      <div class="feed-header">
+        <h3>Live Discoveries</h3>
+        <span class="count-badge" id="disc-count">0</span>
+      </div>
+      <div id="dfeed" class="grid"></div>
+    </section>
+
+    <!-- 5. Search History -->
+    <section id="history" class="view scroll">
+      <div class="feed-header">
+        <h3>Search History</h3>
+        <button class="clear-btn" id="clear-hist" title="Clear History">Clear All</button>
+      </div>
+      <div id="hfeed"></div>
+    </section>
+
+    <!-- Detailed Information View -->
+    <section id="detail" class="view scroll"></section>
+
+    <!-- Quick Info Bottom Sheet -->
+    <div id="sheet"></div>
+
+    <!-- Google AI Studio Settings Modal -->
+    <div id="ai-modal" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>⚡ Google AI Studio Settings</h3>
+          <button class="x" onclick="closeAiModal()">✕</button>
+        </div>
+        <p style="font-size:13px; color:var(--mut); margin:8px 0 14px">
+          Connect your free Google AI Studio API key for 100% precision visual model identification and live Google Search Grounding.
+        </p>
+        <label style="font-size:12px; font-weight:700" for="ai-key-input">Google AI Studio API Key:</label>
+        <input type="password" id="ai-key-input" placeholder="AIzaSy..." autocomplete="off">
+        <small style="display:block; margin:6px 0 14px; color:var(--mut)">
+          Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color:var(--blue)">aistudio.google.com</a>
+        </small>
+        
+        <div class="modal-actions">
+          <button class="btn" onclick="saveAiKey()">Save & Connect Key</button>
+          <button class="btn alt" onclick="clearAiKey()">Disconnect Key</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
